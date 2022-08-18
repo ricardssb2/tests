@@ -45,6 +45,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('tickets/destroy', 'TicketsController@massDestroy')->name('tickets.massDestroy');
     Route::post('tickets/media', 'TicketsController@storeMedia')->name('tickets.storeMedia');
     Route::post('tickets/comment/{ticket}', 'TicketsController@storeComment')->name('tickets.storeComment');
+    Route::get('tickets/open','TicketsController@openticket')->name('tickets.list.open');
+    Route::get('tickets/pending','TicketsController@pendingticket')->name('tickets.list.pending');
+    Route::get('tickets/archive','TicketsController@archive')->name('tickets.list.archive');
+    //Route::get('tickets/list','TicketsController@filteredTickets')->name('tickets.list');
     Route::resource('tickets', 'TicketsController');
 
     // Comments

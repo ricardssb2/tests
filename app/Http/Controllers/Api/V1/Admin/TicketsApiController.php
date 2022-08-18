@@ -68,4 +68,43 @@ class TicketsApiController extends Controller
 
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function openticket()
+    {
+        abort_if(Gate::denies('open_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return new TicketResource(Ticket::with(['status', 'priority', 'category', 'assigned_to_user'])->get());
+    }
+
+    public function pendingticket()
+    {
+        abort_if(Gate::denies('pending_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return new TicketResource(Ticket::with(['status', 'priority', 'category', 'assigned_to_user'])->get());
+    }
+
+    public function archive()
+    {
+        abort_if(Gate::denies('archive_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return new TicketResource(Ticket::with(['status', 'priority', 'category', 'assigned_to_user'])->get());
+    }
+
+    /*
+    public function filteredTickets($request) {
+        $tickets = Ticket::with(['status', 'priority', 'category', 'assigned_to_user'])->get();
+        $tickets = $tickets->filter(function ($ticket) use ($request) {
+            return $ticket->status_id == $request->status_id;
+        });
+        $tickets = $tickets->filter(function ($ticket) use ($request) {
+            return $ticket->priority_id == $request->priority_id;
+        });
+        $tickets = $tickets->filter(function ($ticket) use ($request) {
+            return $ticket->category_id == $request->category_id;
+        });
+        $tickets = $tickets->filter(function ($ticket) use ($request) {
+            return $ticket->assigned_to_user_id == $request->assigned_to_user_id;
+        });
+        return new TicketResource($tickets);
+    }*/
 }

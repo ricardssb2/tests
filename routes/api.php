@@ -21,6 +21,10 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Tickets
     Route::post('tickets/media', 'TicketsApiController@storeMedia')->name('tickets.storeMedia');
+    Route::post('tickets/open', 'TicketsApiController@openticket')->name('tickets.list.open');
+    Route::post('tickets/pending', 'TicketsApiController@pendingticket')->name('tickets.list.pending');
+    Route::post('tickets/archive', 'TicketsApiController@archive')->name('tickets.list.archive');
+    //Route::post('tickets/list', 'TicketsApiController@filteredTickets')->name('tickets.list');
     Route::apiResource('tickets', 'TicketsApiController');
 
     // Comments

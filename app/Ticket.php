@@ -87,7 +87,7 @@ class Ticket extends Model implements HasMedia
         return $this->belongsTo(User::class, 'assigned_to_user_id');
     }
 
-    public function scopeFilterTickets($query)
+    public function scopeFilterTicket($query)
     {
         $query->when(request()->input('priority'), function($query) {
                 $query->whereHas('priority', function($query) {
@@ -105,6 +105,11 @@ class Ticket extends Model implements HasMedia
                 });
             });
     }
+
+    /* if you uncomment this, you need to put static at the upper function 
+    public function scopeFilterTickets($query) {
+        Ticket::scopeFilterTicket($query);
+    }*/
 
     public function sendCommentNotification($comment)
     {
