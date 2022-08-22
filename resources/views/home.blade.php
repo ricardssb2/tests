@@ -1,5 +1,16 @@
 @extends('layouts.admin')
 @section('content')
+
+<?php
+ 
+$dataPoints = array( 
+    array("label"=>"Total", "color"=>"#1266F1", "symbol" => "Total","y"=> number_format($totalTickets)),
+    array("label"=>"Open", "color"=>"#F93154", "symbol" => "Open","y"=>number_format($openTickets)),
+    array("label"=>"Pending", "color"=>"#FFA900", "symbol" => "Pending","y"=>number_format($pendingTicket)),
+    array("label"=>"Closed", "color"=>"#00B74A", "symbol" => "Closed","y"=>number_format($closedTickets)),
+)
+?>
+
 <div class="content">
 
     <div class="row">
@@ -19,26 +30,26 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card text-white bg-danger">
+                            <div class="card text-white" style="background-color: #d386c1; border-color: #B23CFD">
                                 <div class="card-body pb-3">
-                                    <div class="text-value">{{ number_format($openTickets) }}</div>
-                                        <div>Open tickets</div>
+                                    <div class="text-value">{{ number_format($low) }}</div>
+                                        <div>Low priority</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card text-white bg-warning">
+                            <div class="card text-white" style="background-color: #e69c2e; border-color: #FFA900">
                                 <div class="card-body pb-3">
-                                    <div class="text-value">{{ number_format($pendingTicket) }}</div>
-                                    <div>Pending tickets</div>
+                                    <div class="text-value">{{ number_format($medium) }}</div>
+                                    <div>Medium priority</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card text-white bg-success">
+                            <div class="card text-white" style="background-color: #d90b3c; border-color: #F93154">
                                 <div class="card-body pb-3">
-                                    <div class="text-value">{{ number_format($closedTickets) }}</div>
-                                        <div>Closed tickets</div>
+                                    <div class="text-value">{{ number_format($high) }}</div>
+                                        <div>High priority</div>
                                 </div>
                             </div>
                         </div>
@@ -47,16 +58,8 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">
-                    Ticket status
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+        <div id="chartContainer" style="height: 225px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
         </div>
     </div>
 
@@ -210,5 +213,27 @@ $(".datatable-Ticket").one("preInit.dt", function () {
     });
 });
 
+</script>
+
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "light2",
+	animationEnabled: true,
+	title: {
+		text: "Ticket Statistics"
+	},
+	data: [{
+		type: "doughnut",
+		indexLabel: "{symbol} - {y}",
+		showInLegend: false,
+		legendText: "{label} : {y}",
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+}
 </script>
 @endsection

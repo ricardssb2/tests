@@ -29,6 +29,15 @@ class HomeController
         $closedTickets = Ticket::whereHas('status', function($query) {
             $query->whereName('Closed');
         })->count();
+        $low = Ticket::whereHas('priority', function($query) {
+            $query->whereName('Low');
+        })->count();
+        $medium = Ticket::whereHas('priority', function($query) {
+            $query->whereName('Medium');
+        })->count();
+        $high = Ticket::whereHas('priority', function($query) {
+            $query->whereName('High');
+        })->count();
 
         
         $user = auth()->user();
@@ -115,6 +124,6 @@ class HomeController
         $categories = Category::all();
 
 
-        return view('home', compact('totalTickets', 'openTickets', 'pendingTicket', 'closedTickets', 'priorities', 'statuses', 'categories', 'currentUser'));
+        return view('home', compact('totalTickets', 'openTickets', 'pendingTicket', 'closedTickets', 'priorities', 'statuses', 'categories', 'currentUser', 'low', 'medium', 'high'));
     }
 }
