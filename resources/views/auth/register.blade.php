@@ -61,11 +61,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                        <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary px-4">
+                                        {{ __('Register') }}
+                                    </button>
+                                </div>    
+                            <div class="col-6 text-right">
+                                <a class="btn btn-link px-0" href="{{ route('login') }}">Already an account ? </br> Please click to login</a>
                             </div>
                         </div>
                     </form>
