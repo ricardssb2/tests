@@ -33,7 +33,7 @@ $dataPoints = array(
                             <div class="card text-white" style="background-color: #d386c1; border-color: #B23CFD">
                                 <div class="card-body pb-3">
                                     <div class="text-value">{{ number_format($low) }}</div>
-                                        <div>Low priority</div>
+                                        <div>Low </br>priority</div>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,7 @@
                     {!! session('status') !!}
                 </div>
             @endif
+            @auth
             <div class="card">
                 <div class="card-header">Add ticket</div>
 
@@ -97,6 +98,14 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="card">
+            <div class="card-header">Before starting</div>
+            <div class="card-body">
+                <p>You need to be logged in to add a ticket.</p>
+            </div>
+        </div>
+        @endauth
     </div>
 </div>
 @endsection
