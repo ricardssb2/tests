@@ -103,6 +103,16 @@
                         {{ trans('cruds.ticket.title') }}
                     </a>
                     <ul class="nav-dropdown-items">
+                        @can('new_ticket')
+                            <li class="nav-item">
+                                <a href="{{ url('/') }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
+                                    <i class="fa-fw fas fa-plus nav-icon">
+
+                                    </i>
+                                    {{ trans('cruds.ticket_create.title') }}
+                                </a>
+                            </li>
+                        @endcan
                         @can('open_access')
                             <li class="nav-item">
                                 <a href="{{ route('admin.tickets.list.open') }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
