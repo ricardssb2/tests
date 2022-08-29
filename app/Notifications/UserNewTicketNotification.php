@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-class DataChangeEmailNotification extends Notification
+class UserNewTicketNotification extends Notification
 {
     use Queueable;
 
@@ -32,14 +32,14 @@ class DataChangeEmailNotification extends Notification
     {
         return (new MailMessage)
             ->subject($this->data['action'])
-            ->greeting('Hi,')
+            ->greeting('Dear,'.$this->ticket->author_name)
             ->line($this->data['action'])
-            ->line("Customer: ".$this->ticket->author_name) 
-            ->line("Id : ".$this->ticket->id) 
+            ->line("These are the elements you gave us : ") 
             ->line("Ticket name: ".$this->ticket->title)
             ->line("Brief description: ".Str::limit($this->ticket->content, 200))
+            ->line("You can view your ticket by clicking here : ") 
             ->action('View full ticket', route('admin.tickets.show', $this->ticket->id))
-            ->line('Thank you')
+            ->line('Thank you for your confidence')
             ->line(config('app.name') . ' Team')
             ->salutation(' ');
     }

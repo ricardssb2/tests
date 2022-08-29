@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col-6 text-right">
-                            <a class="btn btn-link px-0" href="{{ route('login') }}">go back to admin</a>
+                            <a class="btn btn-link px-0" href="{{ route('login') }}">go back to menu</a>
                         </div>
                     </form>
                 </div>
