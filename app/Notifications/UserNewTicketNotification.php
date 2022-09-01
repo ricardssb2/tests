@@ -31,7 +31,7 @@ class UserNewTicketNotification extends Notification
     public function getMessage()
     {
         return (new MailMessage)
-            ->subject($this->data['action'])
+            ->subject($this->ticket->category->name.".ID#".$this->ticket->id." : ".$this->ticket->author_name." - ".$this->ticket->title." [".$this->ticket->priority->name."]")
             ->greeting('Dear,'.$this->ticket->author_name)
             ->line($this->data['action'])
             ->line("These are the elements you gave us : ") 

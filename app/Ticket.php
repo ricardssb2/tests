@@ -135,9 +135,13 @@ class Ticket extends Model implements HasMedia
                 $q->where('id', '!=', $comment->user_id);
             })
             ->get();
+        $usersadmin = \App\User::whereHas('roles', function ($q) {
+            return $q->where('title', 'Admin');
+        })->get();
         $notification = new CommentEmailNotification($comment);
 
         Notification::send($users, $notification);
+        Notification::send($usersadmin, $notification);
         if($comment->user_id && $this->author_email)
         {
             Notification::route('mail', $this->author_email)->notify($notification);

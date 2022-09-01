@@ -31,7 +31,7 @@ class DataChangeEmailNotification extends Notification
     public function getMessage()
     {
         return (new MailMessage)
-            ->subject($this->data['action'])
+            ->subject($this->ticket->category->name.".ID#".$this->ticket->id." : ".$this->ticket->author_name." - ".$this->ticket->title." [".$this->ticket->priority->name."]")
             ->greeting('Hi,')
             ->line($this->data['action'])
             ->line("Customer: ".$this->ticket->author_name) 
