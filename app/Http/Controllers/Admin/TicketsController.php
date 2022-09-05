@@ -169,6 +169,7 @@ class TicketsController extends Controller
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
         $ticket->update($request->all());
+        $changes = $ticket->getChanges();
 
         if (count($ticket->attachments) > 0) {
             foreach ($ticket->attachments as $media) {
@@ -185,6 +186,8 @@ class TicketsController extends Controller
                 $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachments');
             }
         }
+
+        $ticket->sendUpdateNotification($ticket, $changes);
 
         return redirect()->route('admin.tickets.index');
     }

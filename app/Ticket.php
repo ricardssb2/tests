@@ -5,6 +5,7 @@ namespace App;
 use App\Scopes\AgentScope;
 use App\Traits\Auditable;
 use App\Notifications\CommentEmailNotification;
+use App\Notifications\TicketUpdateNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -143,6 +144,22 @@ class Ticket extends Model implements HasMedia
         Notification::send($users, $notification);
         Notification::send($usersadmin, $notification);
         if($comment->user_id && $this->author_email)
+        {
+            Notification::route('mail', $this->author_email)->notify($notification);
+        }
+    }
+
+    public function sendUpdateNotification($ticket ,$table)
+    {
+        $user = \App\User::where('email', $this->author_email)->first();
+        $usersadmin = \App\User::whereHas('roles', function ($q) {
+            return $q->where('title', 'Admin');
+        })->get();
+        $notification = new TicketUpdateNotification($ticket, $table);
+
+        Notification::send($user, $notification);
+        Notification::send($usersadmin, $notification);
+        if($ticket->user_id && $this->author_email)
         {
             Notification::route('mail', $this->author_email)->notify($notification);
         }
