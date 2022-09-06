@@ -4,7 +4,6 @@
 <?php
  
 $dataPoints = array( 
-    array("label"=>"Total", "color"=>"#1266F1", "symbol" => "Total","y"=> number_format($totalTickets)),
     array("label"=>"Open", "color"=>"#F93154", "symbol" => "Open","y"=>number_format($openTickets)),
     array("label"=>"Pending", "color"=>"#FFA900", "symbol" => "Pending","y"=>number_format($pendingTicket)),
     array("label"=>"Closed", "color"=>"#00B74A", "symbol" => "Closed","y"=>number_format($closedTickets)),

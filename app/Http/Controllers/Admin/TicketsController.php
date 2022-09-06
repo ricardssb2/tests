@@ -186,7 +186,8 @@ class TicketsController extends Controller
                 $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachments');
             }
         }
-
+        //delete last element in $changes array
+        array_pop($changes);
         $ticket->sendUpdateNotification($ticket, $changes);
 
         return redirect()->route('admin.tickets.index');

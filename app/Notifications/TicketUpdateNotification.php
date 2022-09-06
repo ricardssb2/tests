@@ -42,13 +42,17 @@ class TicketUpdateNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        $mail = (new MailMessage)
                     ->subject('Your ticket '.$this->ticket->title.' has been updated')
                     ->greeting('Hi,')
-                    ->line('Your ticket '.$this->ticket->title.':')
-                    ->action('View full ticket', route(optional($notifiable)->id ? 'admin.tickets.show' : 'tickets.show', $this->ticket->id))
+                    ->line('These elements of your ticket '.$this->ticket->title.' has been updated :');
+        foreach($this->table as $key => $value) {
+            $mail->line($key.': '.$value);
+        } 
+                    $mail->action('View full ticket', route(optional($notifiable)->id ? 'admin.tickets.show' : 'tickets.show', $this->ticket->id))
                     ->line('Thank you')
                     ->line(config('app.name') . ' Team')
                     ->salutation(' ');
+        return $mail;
     }
 }
