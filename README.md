@@ -22,4 +22,7 @@ Laravel version: 8.0
 - Run the project : php artisan serve
 - Go to the url : http://127.0.0.1:8000
 
-
+## To commit your changes
+- "git add ." to add all your changes, or "git add <file>" to add a specific file
+- "git commit -m "your message"" to commit your changes
+- "git push origin master" to push your changes on the remote repository
