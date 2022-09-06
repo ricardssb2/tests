@@ -26,3 +26,4 @@ Laravel version: 8.0
 - "git add ." to add all your changes, or "git add <file>" to add a specific file
 - "git commit -m "your message"" to commit your changes
 - "git push origin master" to push your changes on the remote repository
+

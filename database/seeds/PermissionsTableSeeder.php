@@ -184,6 +184,22 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => '44',
                 'title' => 'dashboard_access',
             ],
+            [
+                'id'    => '45',
+                'title' => 'open-access',
+            ],
+            [
+                'id'    => '46',
+                'title' => 'pending-access',
+            ],
+            [
+                'id'    => '47',
+                'title' => 'archive-access',
+            ],
+            [
+                'id'    => '48',
+                'title' => 'new-ticket',
+            ],
         ];
 
         Permission::insert($permissions);
