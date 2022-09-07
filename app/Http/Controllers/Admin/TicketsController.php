@@ -186,8 +186,8 @@ class TicketsController extends Controller
                 $ticket->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('attachments');
             }
         }
-        //delete last element in $changes array
-        array_pop($changes);
+        //delete updated_at from changes
+        unset($changes['updated_at']);
         $ticket->sendUpdateNotification($ticket, $changes);
 
         return redirect()->route('admin.tickets.index');
@@ -340,9 +340,9 @@ class TicketsController extends Controller
         if ($request->ajax()) {
             // if admin, show all tickets, else show only tickets assigned to user
             if ($currentUser->isAgentOrAdmin()) {
-                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('status_id', '=', 3);
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('status_id', '=', 2);
             } else {
-                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('tickets.author_email', $email)->where('status_id', '=', 3);
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('tickets.author_email', $email)->where('status_id', '=', 2);
             }
             //$query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])
             //    ->filterTickets($request)
@@ -434,9 +434,9 @@ class TicketsController extends Controller
         if ($request->ajax()) {
             // if admin, show all tickets, else show only tickets assigned to user
             if ($currentUser->isAgentOrAdmin()) {
-                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('status_id', '=', 2);
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('status_id', '=', 3);
             } else {
-                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('tickets.author_email', $email)->where('status_id', '=', 2);
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('tickets.author_email', $email)->where('status_id', '=', 3);
             }
             //$query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])
             //    ->filterTickets($request)

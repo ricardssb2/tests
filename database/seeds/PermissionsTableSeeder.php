@@ -200,6 +200,86 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => '48',
                 'title' => 'new_ticket',
             ],
+            [
+                'id'    => '49',
+                'title' => 'analyse_create',
+            ],
+            [
+                'id'    => '50',
+                'title' => 'analyse_edit',
+            ],
+            [
+                'id'    => '51',
+                'title' => 'analyse_show',
+            ],
+            [
+                'id'    => '52',
+                'title' => 'analyse_delete',
+            ],
+            [
+                'id'    => '53',
+                'title' => 'analyse_access',
+            ],
+            [
+                'id'    => '54',
+                'title' => 'root_cause_create',
+            ],
+            [
+                'id'    => '55',
+                'title' => 'root_cause_edit',
+            ],
+            [
+                'id'    => '56',
+                'title' => 'root_cause_show',
+            ],
+            [
+                'id'    => '57',
+                'title' => 'root_cause_delete',
+            ],
+            [
+                'id'    => '58',
+                'title' => 'root_cause_access',
+            ],
+            [
+                'id'    => '59',
+                'title' => 'resolution_create',
+            ],
+            [
+                'id'    => '60',
+                'title' => 'resolution_edit',
+            ],
+            [
+                'id'    => '61',
+                'title' => 'resolution_show',
+            ],
+            [
+                'id'    => '62',
+                'title' => 'resolution_delete',
+            ],
+            [
+                'id'    => '63',
+                'title' => 'resolution_access',
+            ],
+            [
+                'id'    => '64',
+                'title' => 'detail_create',
+            ],
+            [
+                'id'    => '65',
+                'title' => 'detail_edit',
+            ],
+            [
+                'id'    => '66',
+                'title' => 'detail_show',
+            ],
+            [
+                'id'    => '67',
+                'title' => 'detail_delete',
+            ],
+            [
+                'id'    => '68',
+                'title' => 'detail_access',
+            ],
         ];
 
         Permission::insert($permissions);
