@@ -15,7 +15,7 @@ class CreateAnalysesTable extends Migration
 
             $table->string('author_email')->nullable();
 
-            $table->longText('analyses_text');
+            $table->longText('analyse_text');
 
             $table->timestamps();
 

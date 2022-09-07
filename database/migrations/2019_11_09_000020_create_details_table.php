@@ -15,7 +15,7 @@ class CreateDetailsTable extends Migration
 
             $table->string('author_email')->nullable();
 
-            $table->longText('resolution_text');
+            $table->longText('detail_text');
 
             $table->timestamps();
 
