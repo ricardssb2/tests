@@ -13,6 +13,10 @@ Auth::routes(['register' => true]);
 
 Route::post('tickets/media', 'TicketController@storeMedia')->name('tickets.storeMedia');
 Route::post('tickets/comment/{ticket}', 'TicketController@storeComment')->name('tickets.storeComment');
+Route::post('tickets/analyse/{ticket}', 'TicketController@storeAnalyse')->name('tickets.storeAnalyse');
+Route::post('tickets/detail/{ticket}', 'TicketController@storeDetail')->name('tickets.storeDetail');
+Route::post('tickets/resolution/{ticket}', 'TicketController@storeResolution')->name('tickets.storeResolution');
+Route::post('tickets/root_cause/{ticket}', 'TicketController@storeRootCause')->name('tickets.storeRootCause');
 Route::resource('tickets', 'TicketController')->only(['show', 'create', 'store']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
@@ -45,6 +49,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('tickets/destroy', 'TicketsController@massDestroy')->name('tickets.massDestroy');
     Route::post('tickets/media', 'TicketsController@storeMedia')->name('tickets.storeMedia');
     Route::post('tickets/comment/{ticket}', 'TicketsController@storeComment')->name('tickets.storeComment');
+    Route::post('tickets/analyse/{ticket}', 'TicketsController@storeAnalyse')->name('tickets.storeAnalyse');
+    Route::post('tickets/detail/{ticket}', 'TicketsController@storeDetail')->name('tickets.storeDetail');
+    Route::post('tickets/resolution/{ticket}', 'TicketsController@storeResolution')->name('tickets.storeResolution');
+    Route::post('tickets/root_cause/{ticket}', 'TicketsController@storeRootCause')->name('tickets.storeRootCause');
     Route::get('tickets/open','TicketsController@openticket')->name('tickets.list.open');
     Route::get('tickets/pending','TicketsController@pendingticket')->name('tickets.list.pending');
     Route::get('tickets/archive','TicketsController@archive')->name('tickets.list.archive');
@@ -54,6 +62,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Comments
     Route::delete('comments/destroy', 'CommentsController@massDestroy')->name('comments.massDestroy');
     Route::resource('comments', 'CommentsController');
+
+    // Analyses
+    Route::delete('analyses/destroy', 'AnalysesController@massDestroy')->name('analyses.massDestroy');
+    Route::resource('analyses', 'AnalysesController');
+
+    // Details
+    Route::delete('details/destroy', 'DetailsController@massDestroy')->name('details.massDestroy');
+    Route::resource('details', 'DetailsController');
+
+    // Resolution
+    Route::delete('resolutions/destroy', 'ResolutionsController@massDestroy')->name('resolutions.massDestroy');
+    Route::resource('resolutions', 'ResoltuionsController');
+
+    // Root Cause
+    Route::delete('root_causes/destroy', 'RootCausesController@massDestroy')->name('root_causes.massDestroy');
+    Route::resource('root_causes', 'RootCausesController');
 
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);

@@ -29,4 +29,16 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Comments
     Route::apiResource('comments', 'CommentsApiController');
+
+    // Analyses
+    Route::apiResource('analyses', 'AnalysesApiController');
+
+    // Details
+    Route::apiResource('details', 'DetailsApiController');
+
+    // Resolutions
+    Route::apiResource('resolutions', 'ResolutionsApiController');
+
+    // Root Causes
+    Route::apiResource('root_causes', 'RootCausesApiController');
 });
