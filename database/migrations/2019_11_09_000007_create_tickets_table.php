@@ -24,4 +24,14 @@ class CreateTicketsTable extends Migration
             $table->softDeletes();
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tickets');
+    }
 }

@@ -186,19 +186,19 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => '45',
-                'title' => 'open-access',
+                'title' => 'open_access',
             ],
             [
                 'id'    => '46',
-                'title' => 'pending-access',
+                'title' => 'pending_access',
             ],
             [
                 'id'    => '47',
-                'title' => 'archive-access',
+                'title' => 'archive_access',
             ],
             [
                 'id'    => '48',
-                'title' => 'new-ticket',
+                'title' => 'new_ticket',
             ],
         ];
 
