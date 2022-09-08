@@ -165,6 +165,7 @@
                                 </div>
                                 <hr />
                             @endforelse
+                            @can('analyse_create')
                             <form action="{{ route('admin.tickets.storeAnalyse', $ticket->id) }}" method="POST">
                                 @csrf
                                 <div class="form-group">
@@ -173,6 +174,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                     <tr>
@@ -196,6 +198,7 @@
                                 </div>
                                 <hr />
                             @endforelse
+                            @can('detail_create')
                             <form action="{{ route('admin.tickets.storeDetail', $ticket->id) }}" method="POST">
                                 @csrf
                                 <div class="form-group">
@@ -204,6 +207,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                     @if($ticket->category->name == 'Incident')
@@ -228,6 +232,7 @@
                                     </div>
                                     <hr />
                                 @endforelse
+                                @can('root_cause_create')
                                 <form action="{{ route('admin.tickets.storeRootCause', $ticket->id) }}" method="POST">
                                     @csrf
                                     <div class="form-group">
@@ -236,6 +241,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         <tr>
@@ -259,6 +265,7 @@
                                     </div>
                                     <hr />
                                 @endforelse
+                                @can('resolution_create')
                                 <form action="{{ route('admin.tickets.storeResolution', $ticket->id) }}" method="POST">
                                     @csrf
                                     <div class="form-group">
@@ -267,6 +274,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @endif
