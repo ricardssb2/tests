@@ -6,6 +6,9 @@ use App\Scopes\AgentScope;
 use App\Traits\Auditable;
 use App\Notifications\CommentEmailNotification;
 use App\Notifications\AnalyseEmailNotification;
+use App\Notifications\DetailEmailNotification;
+use App\Notifications\ResolutionEmailNotification;
+use App\Notifications\RootCauseEmailNotification;
 use App\Notifications\TicketUpdateNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Database\Eloquent\Model;
@@ -202,6 +205,117 @@ class Ticket extends Model implements HasMedia
         Notification::send($users, $notification);
         Notification::send($usersadmin, $notification);
         if($analyse->user_id && $this->author_email)
+        {
+            Notification::route('mail', $this->author_email)->notify($notification);
+        }
+    }
+
+    public function sendDetailNotification($detail)
+    {
+        $users = \App\User::where(function ($q) {
+                $q->whereHas('roles', function ($q) {
+                    return $q->where('title', 'Agent');
+                })
+                ->where(function ($q) {
+                    $q->whereHas('details', function ($q) {
+                        return $q->whereTicketId($this->id);
+                    })
+                    ->orWhereHas('tickets', function ($q) {
+                        return $q->whereId($this->id);
+                    }); 
+                });
+            })
+            ->when(!$detail->user_id && !$this->assigned_to_user_id, function ($q) {
+                $q->orWhereHas('roles', function ($q) {
+                    return $q->where('title', 'Admin');
+                });
+            })
+            ->when($detail->user, function ($q) use ($detail) {
+                $q->where('id', '!=', $detail->user_id);
+            })
+            ->get();
+        $usersadmin = \App\User::whereHas('roles', function ($q) {
+            return $q->where('title', 'Admin');
+        })->get();
+        $notification = new DetailEmailNotification($detail);
+
+        Notification::send($users, $notification);
+        Notification::send($usersadmin, $notification);
+        if($detail->user_id && $this->author_email)
+        {
+            Notification::route('mail', $this->author_email)->notify($notification);
+        }
+    }
+
+    public function sendResolutionNotification($resolution)
+    {
+        $users = \App\User::where(function ($q) {
+                $q->whereHas('roles', function ($q) {
+                    return $q->where('title', 'Agent');
+                })
+                ->where(function ($q) {
+                    $q->whereHas('resolutions', function ($q) {
+                        return $q->whereTicketId($this->id);
+                    })
+                    ->orWhereHas('tickets', function ($q) {
+                        return $q->whereId($this->id);
+                    }); 
+                });
+            })
+            ->when(!$resolution->user_id && !$this->assigned_to_user_id, function ($q) {
+                $q->orWhereHas('roles', function ($q) {
+                    return $q->where('title', 'Admin');
+                });
+            })
+            ->when($resolution->user, function ($q) use ($resolution) {
+                $q->where('id', '!=', $resolution->user_id);
+            })
+            ->get();
+        $usersadmin = \App\User::whereHas('roles', function ($q) {
+            return $q->where('title', 'Admin');
+        })->get();
+        $notification = new ResolutionEmailNotification($resolution);
+
+        Notification::send($users, $notification);
+        Notification::send($usersadmin, $notification);
+        if($resolution->user_id && $this->author_email)
+        {
+            Notification::route('mail', $this->author_email)->notify($notification);
+        }
+    }
+
+    public function sendRootCauseNotification($root_cause)
+    {
+        $users = \App\User::where(function ($q) {
+                $q->whereHas('roles', function ($q) {
+                    return $q->where('title', 'Agent');
+                })
+                ->where(function ($q) {
+                    $q->whereHas('root_causes', function ($q) {
+                        return $q->whereTicketId($this->id);
+                    })
+                    ->orWhereHas('tickets', function ($q) {
+                        return $q->whereId($this->id);
+                    }); 
+                });
+            })
+            ->when(!$root_cause->user_id && !$this->assigned_to_user_id, function ($q) {
+                $q->orWhereHas('roles', function ($q) {
+                    return $q->where('title', 'Admin');
+                });
+            })
+            ->when($root_cause->user, function ($q) use ($root_cause) {
+                $q->where('id', '!=', $root_cause->user_id);
+            })
+            ->get();
+        $usersadmin = \App\User::whereHas('roles', function ($q) {
+            return $q->where('title', 'Admin');
+        })->get();
+        $notification = new RootCauseEmailNotification($root_cause);
+
+        Notification::send($users, $notification);
+        Notification::send($usersadmin, $notification);
+        if($root_cause->user_id && $this->author_email)
         {
             Notification::route('mail', $this->author_email)->notify($notification);
         }

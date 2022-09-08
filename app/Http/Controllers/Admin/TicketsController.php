@@ -289,7 +289,7 @@ class TicketsController extends Controller
             'detail_text'  => $request->detail_text
         ]);
 
-        $ticket->sendDetailNotification($analyse);
+        $ticket->sendDetailNotification($detail);
 
         return redirect()->back()->withStatus('Your detail added successfully');
     }
@@ -307,7 +307,7 @@ class TicketsController extends Controller
             'resolution_text'  => $request->resolution_text
         ]);
 
-        $ticket->sendResolutionNotification($analyse);
+        $ticket->sendResolutionNotification($resolution);
 
         return redirect()->back()->withStatus('Your resolution added successfully');
     }
@@ -325,7 +325,7 @@ class TicketsController extends Controller
             'root_cause_text'  => $request->root_cause_text
         ]);
 
-        $ticket->sendRooCauseNotification($analyse);
+        $ticket->sendRootCauseNotification($root_cause);
 
         return redirect()->back()->withStatus('Your root cause added successfully');
     }

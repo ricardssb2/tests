@@ -9,7 +9,7 @@ class Resolution extends Model
 {
     use SoftDeletes;
 
-    public $table = 'analyses';
+    public $table = 'resolutions';
 
     protected $dates = [
         'created_at',

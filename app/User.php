@@ -51,6 +51,26 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
+    public function analyses()
+    {
+        return $this->hasMany(Analyse::class, 'user_id', 'id');
+    }
+
+    public function details()
+    {
+        return $this->hasMany(Detail::class, 'user_id', 'id');
+    }
+
+    public function resolutions()
+    {
+        return $this->hasMany(Resolution::class, 'user_id', 'id');
+    }
+
+    public function root_causes()
+    {
+        return $this->hasMany(Root_Cause::class, 'user_id', 'id');
+    }
+
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;

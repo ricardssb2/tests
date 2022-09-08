@@ -9,7 +9,7 @@ class Root_Cause extends Model
 {
     use SoftDeletes;
 
-    public $table = 'analyses';
+    public $table = 'root_causes';
 
     protected $dates = [
         'created_at',
