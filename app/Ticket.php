@@ -5,6 +5,7 @@ namespace App;
 use App\Scopes\AgentScope;
 use App\Traits\Auditable;
 use App\Notifications\CommentEmailNotification;
+use App\Notifications\AnalyseEmailNotification;
 use App\Notifications\TicketUpdateNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Database\Eloquent\Model;
@@ -61,6 +62,26 @@ class Ticket extends Model implements HasMedia
     public function comments()
     {
         return $this->hasMany(Comment::class, 'ticket_id', 'id');
+    }
+
+    public function analyses()
+    {
+        return $this->hasMany(Analyse::class, 'ticket_id', 'id');
+    }
+
+    public function details()
+    {
+        return $this->hasMany(Detail::class, 'ticket_id', 'id');
+    }
+
+    public function resolutions()
+    {
+        return $this->hasMany(Resolution::class, 'ticket_id', 'id');
+    }
+
+    public function root_causes()
+    {
+        return $this->hasMany(Root_Cause::class, 'ticket_id', 'id');
     }
 
     public function getAttachmentsAttribute()
@@ -144,6 +165,43 @@ class Ticket extends Model implements HasMedia
         Notification::send($users, $notification);
         Notification::send($usersadmin, $notification);
         if($comment->user_id && $this->author_email)
+        {
+            Notification::route('mail', $this->author_email)->notify($notification);
+        }
+    }
+
+    public function sendAnalyseNotification($analyse)
+    {
+        $users = \App\User::where(function ($q) {
+                $q->whereHas('roles', function ($q) {
+                    return $q->where('title', 'Agent');
+                })
+                ->where(function ($q) {
+                    $q->whereHas('analyses', function ($q) {
+                        return $q->whereTicketId($this->id);
+                    })
+                    ->orWhereHas('tickets', function ($q) {
+                        return $q->whereId($this->id);
+                    }); 
+                });
+            })
+            ->when(!$analyse->user_id && !$this->assigned_to_user_id, function ($q) {
+                $q->orWhereHas('roles', function ($q) {
+                    return $q->where('title', 'Admin');
+                });
+            })
+            ->when($analyse->user, function ($q) use ($analyse) {
+                $q->where('id', '!=', $analyse->user_id);
+            })
+            ->get();
+        $usersadmin = \App\User::whereHas('roles', function ($q) {
+            return $q->where('title', 'Admin');
+        })->get();
+        $notification = new AnalyseEmailNotification($analyse);
+
+        Notification::send($users, $notification);
+        Notification::send($usersadmin, $notification);
+        if($analyse->user_id && $this->author_email)
         {
             Notification::route('mail', $this->author_email)->notify($notification);
         }

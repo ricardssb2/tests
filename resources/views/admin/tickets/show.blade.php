@@ -41,14 +41,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('Duration') }}
-                        </th>
-                        <td>
-                            {{ $ticket->updated_at }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.ticket.fields.title') }}
                         </th>
                         <td>
@@ -152,6 +144,132 @@
                             </form>
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.ticket.fields.analyses') }}
+                        </th>
+                        <td>
+                            @forelse ($ticket->analyses as $analyse)
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="font-weight-bold"><a href="mailto:{{ $analyse->author_email }}">{{ $analyse->author_name }}</a> ({{ $analyse->created_at }})</p>
+                                        <p>{{ $analyse->analyse_text }}</p>
+                                    </div>
+                                </div>
+                                <hr />
+                            @empty
+                                <div class="row">
+                                    <div class="col">
+                                        <p>There are no analyses.</p>
+                                    </div>
+                                </div>
+                                <hr />
+                            @endforelse
+                            <form action="{{ route('admin.tickets.storeAnalyse', $ticket->id) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="analyse_text">Leave an analyse</label>
+                                    <textarea class="form-control" id="analyse_text" name="analyse_text" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.ticket.fields.details') }}
+                        </th>
+                        <td>
+                            @forelse ($ticket->details as $detail)
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="font-weight-bold"><a href="mailto:{{ $detail->author_email }}">{{ $detail->author_name }}</a> ({{ $detail->created_at }})</p>
+                                        <p>{{ $detail->detail_text }}</p>
+                                    </div>
+                                </div>
+                                <hr />
+                            @empty
+                                <div class="row">
+                                    <div class="col">
+                                        <p>There are no details.</p>
+                                    </div>
+                                </div>
+                                <hr />
+                            @endforelse
+                            <form action="{{ route('admin.tickets.storeDetail', $ticket->id) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="detail_text">Leave a detail</label>
+                                    <textarea class="form-control" id="detail_text" name="detail_text" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @if($ticket->category->name == 'Incident')
+                        <tr>
+                            <th>
+                                {{ trans('cruds.ticket.fields.root_causes') }}
+                            </th>
+                            <td>
+                                @forelse ($ticket->root_causes as $root_cause)
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="font-weight-bold"><a href="mailto:{{ $root_cause->author_email }}">{{ $root_cause->author_name }}</a> ({{ $root_cause->created_at }})</p>
+                                            <p>{{ $root_cause->root_cause_text }}</p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                @empty
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>There are no root causes.</p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                @endforelse
+                                <form action="{{ route('admin.tickets.storeRootCause', $ticket->id) }}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="root_cause_text">Leave a root cause</label>
+                                        <textarea class="form-control" id="root_cause_text" name="root_cause_text" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.ticket.fields.resolutions') }}
+                            </th>
+                            <td>
+                                @forelse ($ticket->resolutions as $resolution)
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="font-weight-bold"><a href="mailto:{{ $resolution->author_email }}">{{ $resolution->author_name }}</a> ({{ $resolution->created_at }})</p>
+                                            <p>{{ $resolution->resolution_text }}</p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                @empty
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>There are no resolutions.</p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                @endforelse
+                                <form action="{{ route('admin.tickets.storeResolution', $ticket->id) }}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="resolution_text">Leave a resolution</label>
+                                        <textarea class="form-control" id="resolution_text" name="resolution_text" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

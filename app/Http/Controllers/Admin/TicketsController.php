@@ -31,9 +31,9 @@ class TicketsController extends Controller
         if ($request->ajax()) {
             // if admin, show all tickets, else show only tickets assigned to user
             if ($currentUser->isAgentOrAdmin()) {
-                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table));
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments', 'analyses'])->select(sprintf('%s.*', (new Ticket)->table));
             } else {
-                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])->select(sprintf('%s.*', (new Ticket)->table))->where('tickets.author_email', $email);
+                $query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments', 'analyses'])->select(sprintf('%s.*', (new Ticket)->table))->where('tickets.author_email', $email);
             }
             //$query = Ticket::with(['status', 'priority', 'category', 'assigned_to_user', 'comments'])
             //    ->filterTickets($request)
@@ -98,6 +98,10 @@ class TicketsController extends Controller
 
             $table->addColumn('comments_count', function ($row) {
                 return $row->comments->count();
+            });
+
+            $table->addColumn('analyses_count', function ($row) {
+                return $row->analyses->count();
             });
 
             $table->addColumn('view_link', function ($row) {
@@ -171,6 +175,24 @@ class TicketsController extends Controller
         $ticket->update($request->all());
         $changes = $ticket->getChanges();
 
+        foreach($changes as $key => $value) {
+            if($key == 'status_id') {
+                $key = 'Status';
+                $changes = array_replace($changes, array($key => Status::find($value)->name));
+                unset($changes['status_id']);
+            }
+            if($key == 'priority_id') {
+                $key = 'Priority';
+                $changes = array_replace($changes, array($key => Priority::find($value)->name));
+                unset($changes['priority_id']);
+            }
+            if($key == 'category_id') {
+                $key = 'Category';
+                $changes = array_replace($changes, array($key => Category::find($value)->name));
+                unset($changes['category_id']);
+            }
+        }
+
         if (count($ticket->attachments) > 0) {
             foreach ($ticket->attachments as $media) {
                 if (!in_array($media->file_name, $request->input('attachments', []))) {
@@ -197,7 +219,7 @@ class TicketsController extends Controller
     {
         abort_if(Gate::denies('ticket_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ticket->load('status', 'priority', 'category', 'assigned_to_user', 'comments');
+        $ticket->load('status', 'priority', 'category', 'assigned_to_user', 'comments','analyses');
 
         return view('admin.tickets.show', compact('ticket'));
     }
@@ -234,6 +256,78 @@ class TicketsController extends Controller
         $ticket->sendCommentNotification($comment);
 
         return redirect()->back()->withStatus('Your comment added successfully');
+    }
+
+    public function storeAnalyse(Request $request, Ticket $ticket)
+    {
+        $request->validate([
+            'analyse_text' => 'required'
+        ]);
+        $user = auth()->user();
+        $analyse = $ticket->analyses()->create([
+            'author_name'   => $user->name,
+            'author_email'  => $user->email,
+            'user_id'       => $user->id,
+            'analyse_text'  => $request->analyse_text
+        ]);
+
+        $ticket->sendAnalyseNotification($analyse);
+
+        return redirect()->back()->withStatus('Your analyse added successfully');
+    }
+    
+    public function storeDetail(Request $request, Ticket $ticket)
+    {
+        $request->validate([
+            'detail_text' => 'required'
+        ]);
+        $user = auth()->user();
+        $detail = $ticket->details()->create([
+            'author_name'   => $user->name,
+            'author_email'  => $user->email,
+            'user_id'       => $user->id,
+            'detail_text'  => $request->detail_text
+        ]);
+
+        $ticket->sendDetailNotification($analyse);
+
+        return redirect()->back()->withStatus('Your detail added successfully');
+    }
+
+    public function storeResolution(Request $request, Ticket $ticket)
+    {
+        $request->validate([
+            'resolution_text' => 'required'
+        ]);
+        $user = auth()->user();
+        $resolution = $ticket->resolutions()->create([
+            'author_name'   => $user->name,
+            'author_email'  => $user->email,
+            'user_id'       => $user->id,
+            'resolution_text'  => $request->resolution_text
+        ]);
+
+        $ticket->sendResolutionNotification($analyse);
+
+        return redirect()->back()->withStatus('Your resolution added successfully');
+    }
+
+    public function storeRootCause(Request $request, Ticket $ticket)
+    {
+        $request->validate([
+            'root_cause_text' => 'required'
+        ]);
+        $user = auth()->user();
+        $root_cause = $ticket->root_causes()->create([
+            'author_name'   => $user->name,
+            'author_email'  => $user->email,
+            'user_id'       => $user->id,
+            'root_cause_text'  => $request->root_cause_text
+        ]);
+
+        $ticket->sendRooCauseNotification($analyse);
+
+        return redirect()->back()->withStatus('Your root cause added successfully');
     }
 
     public function openticket(Request $request)
