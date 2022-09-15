@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\User;
 use App\Notifications\WeeklyAdminNotification;
+use Illuminate\Notifications\Notification;
 
 class AutoWeeklyNotification extends Command
 {
@@ -39,14 +40,13 @@ class AutoWeeklyNotification extends Command
      */
     public function handle()
     {
-        //user where role is admin
-        $users = User::where('role', 'admin')->get();
+        $users = User::all();
 
         if ($users->count() > 0) {
             foreach ($users as $user) {
-                $notification = new WeeklyAdminNotification($user);
-
-                Notification::send($user, $notification);
+                if($user->isAgentOrAdmin()){
+                    $user->notify(new WeeklyAdminNotification($user));
+                }
             }
         }
 
