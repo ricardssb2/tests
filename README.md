@@ -55,3 +55,14 @@ Laravel version: 8.0
 
 
 
+# Some ideas to improve the project
+- Try to find how to auto refresh pages
+- The function to send a mail weekly is done but :
+    - Schedule is not working
+    - The design of the mail is not done
+- Make popups at ticket arriving in dashboard
+- Change the home page (no design)
+- Change app name in config/app.php
+- Change the design of the project
+- Change the way mails are designed (from notifications to blade files) -> https://laravel.com/docs/8.x/mail#generating-mailables
+- Change the fact that user goes to admin but can't see anything (route and new pages to do)
