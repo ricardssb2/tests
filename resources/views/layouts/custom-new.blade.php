@@ -1,0 +1,1 @@
+<link href="{{ asset('css/custom-new.css') }}" rel="stylesheet">
