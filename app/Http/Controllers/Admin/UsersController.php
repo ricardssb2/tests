@@ -11,6 +11,7 @@ use App\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -68,19 +69,27 @@ class UsersController extends Controller
         return view('admin.users.show', compact('user'));
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user) // user deletion function in user section
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $current_user = json_encode(Auth::user()->email); //fetches currently logged in user data and converts it to json string
 
-        $user->delete();
+        if($current_user != json_encode($user->email)) //compares currently logged in user with the user that would be deleted
+        { // if emails do not match, user is deleted
+            $user->delete(); 
+            return back();
+        }
+        else //if emails match, deletion is prevented
+        {
+            abort(403, 'Unable to proceed with action.');
+        }
 
-        return back();
     }
 
-    public function massDestroy(MassDestroyUserRequest $request)
+    public function massDestroy(MassDestroyUserRequest $request) //function for delete selected (multiple users)
     {
         User::whereIn('id', request('ids'))->delete();
-
+        
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -86,3 +86,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 });
 
+Route::get('/test', function () {
+    return view('ticket_filter');
+});
+
+
+Route::get('/ticket_filter_data', function () {
+    return view('ticket_filter_data');
+});
