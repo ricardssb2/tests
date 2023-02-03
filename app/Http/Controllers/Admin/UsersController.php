@@ -16,25 +16,26 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index() // displays user data
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+    // denies access if user doesn't have user_access permissions
         $users = User::all();
 
         return view('admin.users.index', compact('users'));
     }
 
-    public function create()
+    public function create() 
     {
-        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden'); 
+        // denies access if user doesn't have user_create permissions
 
         $roles = Role::all()->pluck('title', 'id');
 
         return view('admin.users.create', compact('roles'));
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request) // stores user data on creation
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
@@ -45,6 +46,7 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // denies access if user doesn't have user_edit permissions
 
         $roles = Role::all()->pluck('title', 'id');
 
@@ -53,7 +55,7 @@ class UsersController extends Controller
         return view('admin.users.edit', compact('roles', 'user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user) // updates user information when editing
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
