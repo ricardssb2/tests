@@ -10,6 +10,7 @@ use App\Role;
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -88,8 +89,43 @@ class UsersController extends Controller
 
     public function massDestroy(MassDestroyUserRequest $request) //function for delete selected (multiple users)
     {
-        User::whereIn('id', request('ids'))->delete();
+        // User::whereIn('id', request('ids'))->delete();
         
-        return response(null, Response::HTTP_NO_CONTENT);
+        // return response(null, Response::HTTP_NO_CONTENT);
+
+        $u_id = User::whereIn('id', request('ids'))->get(); //selected accounts
+        $current_user = json_encode(Auth::user()->email); // currently logged in user
+
+        $list = []; // empty list to store selected user emails
+        $matching_email_count = 0;
+
+        foreach(json_decode($u_id) as $key => $value) // goes through all selected users
+        {
+            array_push($list, $value->email); // adds all selected user emails to array
+        }
+
+        foreach($list as $value) // goes through email list
+        {
+            
+            if(json_encode($value) == $current_user): // if current user matches with any of the emails in the list
+
+                $matching_email_count ++;
+
+            endif;
+        }
+
+        if($matching_email_count > 0) // if there's a matching email:
+            {
+                return response()->json([ //returns error
+                    'message' => 'Cannot delete your own account'
+                ], 403);
+            }
+            else // if current user doesn't match with any of the emails in the list
+            {
+                User::whereIn('id', request('ids'))->delete(); //deletes selected users
+        
+                return response(null, Response::HTTP_NO_CONTENT);
+            }
+
     }
 }
