@@ -92,3 +92,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'])->name('mainpage');
 });
 
+Route::get('/test', function () {
+    return view('ticket_filter');
+});
+
+
+Route::get('/ticket_filter_data', function () {
+    return view('ticket_filter_data');
+});

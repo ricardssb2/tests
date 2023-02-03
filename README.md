@@ -9,6 +9,19 @@ Laravel version: 8.0
 - Clone the project : git clone git@github.com:Rokem-prog/chipstorm_support_ticket.git
 - Create a database and an user
 - Copy __.env.example__ file to __.env__ and edit with database credentials and mail credentials
+For mail credentials we used:
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+
+MAIL_USERNAME="gmail here"
+MAIL_PASSWORD="app password 2fa required"
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="gmail here"
+MAIL_FROM_NAME="${APP_NAME}"
+
+requires database credentials in resources>views>db_connection>connection.php
 - Run __composer install__
 - Run __php artisan key:generate__
 - Run __php artisan migrate --seed__ (it has some seeded data for your testing)

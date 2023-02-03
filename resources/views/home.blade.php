@@ -119,34 +119,19 @@ $dataPoints = array(
     $(function () {
 let filters = `
 <form class="form-inline" id="filtersForm">
-  <div class="form-group mx-sm-3 mb-2">
-    <select class="form-control" name="status">
-      <option value="">All statuses</option>
-      @foreach($statuses as $status)
-        <option value="{{ $status->id }}"{{ request('status') == $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
-      @endforeach
-    </select>
-  </div>
-  <div class="form-group mx-sm-3 mb-2">
-    <select class="form-control" name="priority">
-      <option value="">All priorities</option>
-      @foreach($priorities as $priority)
-        <option value="{{ $priority->id }}"{{ request('priority') == $priority->id ? 'selected' : '' }}>{{ $priority->name }}</option>
-      @endforeach
-    </select>
-  </div>
-  <div class="form-group mx-sm-3 mb-2">
-    <select class="form-control" name="category">
-      <option value="">All categories</option>
-      @foreach($categories as $category)
-        <option value="{{ $category->id }}"{{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-      @endforeach
-    </select>
-  </div>
 </form>`;
-$('.card-body').on('change', 'select', function() {
-  $('#filtersForm').submit();
-})
+
+$('.card-body').on('change', 'select', function() //admin dashboard all ticket table
+{ //when selecting a filter
+  $('#filtersForm').submit
+    (
+        function( event ) 
+        {
+            event.preventDefault(); // prevents reloading of the page when selecting a filter
+        }
+    )
+});
+
   let dtButtons = []
   let searchParams = new URLSearchParams(window.location.search)
   let dtOverrideGlobals = {

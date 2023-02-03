@@ -11,6 +11,7 @@ use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class PermissionsController extends Controller
 {
     public function index()
@@ -61,6 +62,7 @@ class PermissionsController extends Controller
     {
         abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        
         $permission->delete();
 
         return back();
