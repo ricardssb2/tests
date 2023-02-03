@@ -97,7 +97,7 @@ class TicketController extends Controller
             'author_email'  => $ticket->author_email,
             'analyse_text'  => $request->analyse_text
         ]);
-
+        
         $ticket->sendAnalyseNotification($comment);
 
         return redirect()->back()->withStatus('Your analyse added successfully');

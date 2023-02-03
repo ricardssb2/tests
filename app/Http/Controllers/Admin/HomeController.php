@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 use App\Ticket;
 use App\Category;
@@ -12,6 +12,7 @@ use App\Priority;
 use App\Status;
 use App\User;
 use Illuminate\Http\Request;
+use DataTables;
 
 class HomeController
 {
