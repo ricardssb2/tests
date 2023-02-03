@@ -9,7 +9,7 @@ use App\Http\Requests\StoreRootCauseRequest;
 use App\Http\Requests\UpdateRootCauseRequest;
 use App\Ticket;
 use App\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 

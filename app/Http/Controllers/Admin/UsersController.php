@@ -8,7 +8,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Role;
 use App\User;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,16 +82,13 @@ class UsersController extends Controller
         }
         else //if emails match, deletion is prevented
         {
-            abort(403, 'Unable to proceed with action.');
+            abort(403, 'Unable to proceed with action.'); // returns error page
         }
 
     }
 
     public function massDestroy(MassDestroyUserRequest $request) //function for delete selected (multiple users)
     {
-        // User::whereIn('id', request('ids'))->delete();
-        
-        // return response(null, Response::HTTP_NO_CONTENT);
 
         $u_id = User::whereIn('id', request('ids'))->get(); //selected accounts
         $current_user = json_encode(Auth::user()->email); // currently logged in user
@@ -124,7 +121,7 @@ class UsersController extends Controller
             {
                 User::whereIn('id', request('ids'))->delete(); //deletes selected users
         
-                return response(null, Response::HTTP_NO_CONTENT);
+                return response(null, Response::HTTP_NO_CONTENT); 
             }
 
     }
