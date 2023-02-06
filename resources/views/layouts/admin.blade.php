@@ -1,3 +1,4 @@
+@extends ('layouts.custom-new')
 <!DOCTYPE html>
 <html>
 
@@ -29,17 +30,15 @@
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <span class="" style="font-weight:bold; padding-left:20px;">{{ trans('panel.site_title') }}</span>
         @if(Auth::user()->isAgentOrAdmin())
         <a class="navbar-brand" href="{{url('admin')}}">
         @else
         <a class="navbar-brand" href="{{url('admin/tickets')}}">
         @endif
-            <span class="navbar-brand-full">{{ trans('panel.site_title') }}</span>
-            <span class="navbar-brand-minimized">{{ trans('panel.site_title') }}</span>
+
         </a>
-        <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
 
         <ul class="nav navbar-nav ml-auto">
             @if(count(config('panel.available_languages', [])) > 1)
@@ -87,9 +86,9 @@
 
 
         </main>
-        <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
-        </form>
+          <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+          </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>

@@ -94,7 +94,6 @@
                     </a>
                 </li>
             @endcan
-            @can('ticket_access')
             <li class="nav-item nav-dropdown">
                     <a class="nav-link  nav-dropdown-toggle" href="#">
                         <i class="fa-fw fa fa-ticket nav-icon">
@@ -103,7 +102,6 @@
                         {{ trans('cruds.ticket.title') }}
                     </a>
                     <ul class="nav-dropdown-items">
-                        @can('new_ticket')
                             <li class="nav-item">
                                 <a href="{{ url('/') }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
                                     <i class="fa-fw fas fa-plus nav-icon">
@@ -112,8 +110,6 @@
                                     {{ trans('cruds.ticket_create.title') }}
                                 </a>
                             </li>
-                        @endcan
-                        @can('open_access')
                             <li class="nav-item">
                                 <a href="{{ route('admin.tickets.list.open') }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
                                     <i class="fa-fw fas fa-question-circle nav-icon">
@@ -122,7 +118,6 @@
                                     {{ trans('cruds.ticket_open.title') }}
                                 </a>
                             </li>
-                        @endcan
                         @can('pending_access')
                             <li class="nav-item">
                                 <a href="{{ route('admin.tickets.list.pending') }}" class="nav-link {{ request()->is('admin/tickets') || request()->is('admin/tickets/*') ? 'active' : '' }}">
@@ -145,7 +140,6 @@
                         @endcan
                     </ul>
                 </li>
-            @endcan
             @can('comment_access')
                 <li class="nav-item">
                     <a href="{{ route('admin.comments.index') }}" class="nav-link {{ request()->is('admin/comments') || request()->is('admin/comments/*') ? 'active' : '' }}">
@@ -157,7 +151,7 @@
                 </li>
             @endcan
             <li class="nav-item">
-                <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+                <a href="#" class="nav-link"onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                     <i class="nav-icon fas fa-fw fa-sign-out-alt">
 
                     </i>
