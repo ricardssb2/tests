@@ -30,12 +30,7 @@
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <span class="" style="font-weight:bold; padding-left:20px;">{{ trans('panel.site_title') }}</span>
-        @if(Auth::user()->isAgentOrAdmin())
-        <a class="navbar-brand" href="{{url('admin')}}">
-        @else
-        <a class="navbar-brand" href="{{url('admin/tickets')}}">
-        @endif
+        <a href="/admin/tickets"class="" style="font-weight:bold; padding-left:20px; font-family:arial; text-decoration:none; color:black;">{{ trans('panel.site_title') }}</a>
 
         </a>
 

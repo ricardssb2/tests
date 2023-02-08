@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-                <div class="ticket-id">Ticket #{{ $ticket->id }}</div>
+                <div class="ticket-id">Ticket ID #{{ $ticket->id }}</div>
                 @if(session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
