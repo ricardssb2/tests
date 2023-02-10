@@ -84,7 +84,7 @@ class UsersController extends Controller
         }
         else //if emails match, deletion is prevented
         {
-            abort(403, 'Unable to proceed with action.'); // returns error page
+            return back();; // returns error page
         }
 
     }

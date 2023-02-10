@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
 // Main Page
 Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'])->name('mainpage');
+
+Route::resource('users','TestController'); // user ajax table
 
 Route::get('/', 'TicketController@create');
 Route::get('/home', function () {

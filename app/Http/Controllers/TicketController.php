@@ -154,3 +154,4 @@ class TicketController extends Controller
         return redirect()->back()->withStatus('Your root cause added successfully');
     }
 }
+

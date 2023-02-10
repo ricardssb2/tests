@@ -10,12 +10,6 @@
     </div>
 @endcan
 
-@if(session()->has('error_message'))
-    <div class="alert alert-danger">
-        {{ session('error_message') }}
-    </div>
-@endif
-
 <div class="card">
     <div class="card-header">
         {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
