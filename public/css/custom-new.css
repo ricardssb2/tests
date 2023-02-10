@@ -14,3 +14,52 @@
     padding-top:20px;
     font-weight: bold;
 }
+
+.card-style{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ticket-id{
+    font-weight: bold;
+    margin-top:75px;
+    padding-bottom: 10px;
+}
+
+.text-area{
+    background-color: gray;
+}
+
+.form-box{
+    margin-top: 110px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    font-family: arial;
+    
+}
+
+.form-box h1{
+    font-size:25px;
+    margin-left:205px;
+
+    font-weight: bold;
+}
+
+.form-box p{
+    margin-left:205px;
+}
+
+.form-box label{
+    font-weight: bold;
+}
+.header-ticket-create{
+    font-weight: bold;
+    margin-left: 210px;
+    padding-bottom: 10px;
+}
+
+
+.alert-edit{
+    margin-left:200px; 
+    max-width:550px;
+}

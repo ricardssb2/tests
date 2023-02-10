@@ -21,15 +21,15 @@ $dataPoints = array(
                 <div class="card-body">
                     <div class="row row-cols-1 row-cols-md-2 g-4">
                         <div class="col">
-                            <div class="card text-white bg-primary">
-                                <div class="card-body pb-3">
-                                    <div class="text-value">{{ number_format($totalTickets) }}</div>
+                            <div class="card text-white bg-primary "  style="height:110px;">
+                                <div class="card-body pb-3 box-height">
+                                    <div class="text-value ">{{ number_format($totalTickets) }}</div>
                                     <div>Total tickets</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card text-white" style="background-color: #d386c1; border-color: #B23CFD">
+                            <div class="card text-white box-height" style="background-color: #d386c1; border-color: #B23CFD">
                                 <div class="card-body pb-3">
                                     <div class="text-value">{{ number_format($low) }}</div>
                                         <div>Low </br>priority</div>
@@ -38,14 +38,14 @@ $dataPoints = array(
                         </div>
                         <div class="col">
                             <div class="card text-white" style="background-color: #e69c2e; border-color: #FFA900">
-                                <div class="card-body pb-3">
+                                <div class="card-body pb-3 box-height">
                                     <div class="text-value">{{ number_format($medium) }}</div>
                                     <div>Medium priority</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card text-white" style="background-color: #d90b3c; border-color: #F93154">
+                            <div class="card text-white" style="background-color: #d90b3c; border-color: #F93154; height:110px;">
                                 <div class="card-body pb-3">
                                     <div class="text-value">{{ number_format($high) }}</div>
                                         <div>High priority</div>

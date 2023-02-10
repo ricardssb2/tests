@@ -1,18 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.custom-new')
 
-@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            @if(session('status'))
+
+                <div class="ticket-id">Ticket ID #{{ $ticket->id }}</div>
+                @if(session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
                 </div>
-            @endif
-            <div class="card">
-                <div class="card-header">Ticket #{{ $ticket->id }}</div>
-
-                <div class="card-body">
+                @endif
                     <table class="table table-bordered table-striped">
                         <tbody>
                             <tr>
@@ -94,8 +91,8 @@
                     <form action="{{ route('tickets.storeComment', $ticket->id) }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="comment_text">Leave a comment</label>
-                            <textarea class="form-control @error('comment_text') is-invalid @enderror" id="comment_text" name="comment_text" rows="3" required></textarea>
+                            <label for="comment_text" style="font-weight:bold">Leave a comment</label>
+                            <textarea style="background-color:#d8d9da;"class="form-control @error('comment_text') is-invalid @enderror" id="comment_text" name="comment_text" rows="3" required></textarea>
                             @error('comment_text')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -103,10 +100,10 @@
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">@lang('global.submit')</button>
+                        <a href="/home" class="btn btn-dark">Back</a>
                     </form>
-                </div>
-            </div>
+                
+           
         </div>
     </div>
 </div>
-@endsection

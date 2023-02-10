@@ -11103,7 +11103,7 @@ a.text-dark:focus {
 /*new css*/
 
 .navbar-new{
-  width: 1150px;
+  width: 470px;
   height: 50px;
   background-color: rgba(0, 0, 0, 0.72);
   margin-left:auto;
@@ -11142,9 +11142,8 @@ a.text-dark:focus {
 /*mainpage*/
 
 .first-cont{
-  background-color: black;
   padding-bottom:50px;
-  color:White;
+  
 }
 
 .block-text{
@@ -11176,8 +11175,6 @@ a.text-dark:focus {
 /*second cont*/
 
 .second-cont{
-  background-color: black;
-  color:White;
   padding-bottom:50px;
   margin-top:100px;
   margin-bottom:140px;
@@ -11198,36 +11195,41 @@ a.text-dark:focus {
   font-weight: bold;
   text-align:left;
   margin-top:10px;
+  text-align: center;
+  margin-left: 50px;
 }
 .under-text p{
-  max-width: 70%;
+  max-width: 100%;
   font-size:16px;
-  text-align:left;
+  margin-left: 50px;
+  text-align:center;
 }
 /*third cont*/
 
 .third-cont{
-  background-color:black;
-  color:White;
   padding-bottom:75px;
   margin-bottom:120px;
 }
 
 .third-photo img{
-  height: 300px;
-  width: 600px;
-  float:right;
+  height: 200x;
+  width: 450px;
+  float:center;
   border-radius: 15px 15px 15px 15px;
-  margin-top:60px;
+  margin-top:80px;
+  
 }
 
 .third-header h1{
   font-weight: bold;
   margin-top:90px;
+  text-align: center;
 }
 
 .third-under-text{
-  max-width: 75%;
+ text-align: center;
+ max-width: 90%;
+ margin-left: 30px;
 }
 
 /*forth cont*/
@@ -11258,3 +11260,5 @@ a.text-dark:focus {
 .table-list{
   margin-top:12%
 }
+
+
