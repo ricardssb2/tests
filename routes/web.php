@@ -10,7 +10,10 @@ Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'
 
 Route::resource('users','TestController'); // user ajax table
 
-Route::get('/', 'TicketController@create');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', 'TicketController@create');
+});
+
 Route::get('/home', function () {
     $route = Gate::denies('dashboard_access') ? 'admin.tickets.index' : 'admin.home';
     if (session('status')) {
@@ -94,5 +97,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
     // Main Page
-    Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'])->name('mainpage');
 });

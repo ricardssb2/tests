@@ -13,7 +13,7 @@ class MainPageController extends Controller
      */
     public function index()
     {
-        return view('mainpage');
+        return view('index');
     }
 }
 
