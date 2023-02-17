@@ -60,7 +60,7 @@ class TicketsController extends Controller
             });
 
             $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : "";
+                return $row->id ? $row->id : "" . view('partials.fetchid');
             });
             $table->editColumn('title', function ($row) {
                 return $row->title ? $row->title : "";
@@ -92,14 +92,6 @@ class TicketsController extends Controller
             $table->editColumn('author_email', function ($row) {
                 return $row->author_email ? $row->author_email : "";
             });
-            // $table->addColumn('assigned_to_user_name', function ($row) {                
-            //     if ($row->assigned_to_user == null){
-            //         return 'Hi ' . $row->assigned_to_user . '!';
-            //     }
-            //     else{
-            //         return $row->assigned_to_user;
-            //     }
-            // });
 
             $table->addColumn('assigned_to_user_name', function($row)
             {
@@ -637,9 +629,7 @@ class TicketsController extends Controller
 
     public function assignUser(Request $request)
     {
-        $selectedUser = $request->get('fullName');
-
-
+        $selectedUser = $request->get('selectedUser');
         // return redirect()->route('admin.tickets.index');
     }
 

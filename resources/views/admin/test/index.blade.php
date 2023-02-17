@@ -110,6 +110,9 @@
              }); //end of ajax
         })
     })
+    
 </script>
+
+
 
 @endsection
