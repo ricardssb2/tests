@@ -92,8 +92,31 @@ class TicketsController extends Controller
             $table->editColumn('author_email', function ($row) {
                 return $row->author_email ? $row->author_email : "";
             });
-            $table->addColumn('assigned_to_user_name', function ($row) {
-                return $row->assigned_to_user ? $row->assigned_to_user->name : '';
+            // $table->addColumn('assigned_to_user_name', function ($row) {                
+            //     if ($row->assigned_to_user == null){
+            //         return 'Hi ' . $row->assigned_to_user . '!';
+            //     }
+            //     else{
+            //         return $row->assigned_to_user;
+            //     }
+            // });
+
+            $table->addColumn('assigned_to_user_name', function($row)
+            {
+
+                $assigned_to_users = User::whereHas('roles', function($query) {
+                        $query->whereId(2);
+                    })
+                    ->pluck('name', 'id'); //selects the assigned user to a ticket
+
+                if($row->assigned_to_user == null) // checks the value of the assigned users if it's null
+                {
+                    return view('partials.assigned',compact('assigned_to_users')); // returns view where select is defined
+                }
+                else // if the value of an assigned user is set
+                {
+                    return $row->assigned_to_user->name; // returns the asssigned user name
+                }
             });
 
             $table->addColumn('comments_count', function ($row) {
@@ -611,6 +634,16 @@ class TicketsController extends Controller
 
         return view('admin.tickets.list', compact('priorities', 'statuses', 'categories', 'currentUser'));
     }
+
+    public function assignUser(Request $request)
+    {
+        $selectedUser = $request->get('fullName');
+
+
+        // return redirect()->route('admin.tickets.index');
+    }
+
+
 
     /*
     public function filteredTickets(Request $request) {

@@ -21,9 +21,9 @@ class TestController extends Controller
         if ($request->ajax()) {
             return datatables()->of($user)
                 ->addColumn('action', function ($row) {
-                    $html = '<a href="/admin/user/' . $row->id .'" class="btn btn-xs btn-primary">View</a> ';
-                    $html .= '<a href="/admin/users/' . $row->id .'/edit" class="btn btn-xs btn-info">Edit</a> ';
-                    $html .= '<button data-rowid="' . $row->id . '" class="btn btn-xs btn-danger btn-delete">Delete</button>';
+                    $html = '<a href="/admin/user/' . $row->id .'" class="btn btn-xs btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a> ';
+                    $html .= '<a href="/admin/users/' . $row->id .'/edit" class="btn btn-xs btn-info"><i class="fa fa-wrench" aria-hidden="true"></i></a> ';
+                    $html .= '<button data-rowid="' . $row->id . '" class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash" aria-hidden="true"></i></button>';
                     return $html;
                 })->toJson();
         }

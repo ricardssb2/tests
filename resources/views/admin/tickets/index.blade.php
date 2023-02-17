@@ -42,7 +42,7 @@
                     <th>
                         {{ trans('cruds.ticket.fields.author_email') }}
                     </th>
-                    <th>
+                    <th id = "assigned">
                         {{ trans('cruds.ticket.fields.assigned_to_user') }}
                     </th>
                     <th>
@@ -55,6 +55,11 @@
 
     </div>
 </div>
+
+<script>
+  
+</script>
+
 @endsection
 @section('scripts')
 @parent
@@ -112,43 +117,45 @@ $('.card-body').on('change', 'select', function() {
     },
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'id', name: 'id' },
-{
-    data: 'title',
-    name: 'title', 
-    render: function ( data, type, row) {
-        return '<a href="'+row.view_link+'">'+data+' ('+row.comments_count+')</a>';
-    }
-},
-{ 
-  data: 'status_name', 
-  name: 'status.name', 
-  render: function ( data, type, row) {
-      return '<span style="color:'+row.status_color+'">'+data+'</span>';
-  }
-},
-{ 
-  data: 'priority_name', 
-  name: 'priority.name', 
-  render: function ( data, type, row) {
-      return '<span style="color:'+row.priority_color+'">'+data+'</span>';
-  }
-},
-{ 
-  data: 'category_name', 
-  name: 'category.name', 
-  render: function ( data, type, row) {
-      return '<span style="color:'+row.category_color+'">'+data+'</span>';
-  } 
-},
-{ data: 'author_name', name: 'author_name' },
-{ data: 'author_email', name: 'author_email' },
-{ data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
-{ data: 'actions', name: '{{ trans('global.actions') }}' }
+      { data: 'id', name: 'id' },
+      { data: 'title', name: 'title', 
+        render: function ( data, type, row) 
+        {
+          return '<a href="'+row.view_link+'">'+data+' ('+row.comments_count+')</a>';
+        }
+      },
+      { data: 'status_name', name: 'status.name', 
+        render: function ( data, type, row) 
+        {
+            return '<span style="color:'+row.status_color+'">'+data+'</span>';
+        }
+      },
+      { 
+        data: 'priority_name', 
+        name: 'priority.name', 
+        render: function ( data, type, row) 
+        {
+            return '<span style="color:'+row.priority_color+'">'+data+'</span>';
+        }
+      },
+      { 
+        data: 'category_name', 
+        name: 'category.name', 
+        render: function ( data, type, row) 
+        {
+            return '<span style="color:'+row.category_color+'">'+data+'</span>';
+        } 
+      },
+      { data: 'author_name', name: 'author_name' },
+      { data: 'author_email', name: 'author_email' },
+      { data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
+      { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
+
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   };    
+
 $(".datatable-Ticket").one("preInit.dt", function () {
  $(".dataTables_filter").after(filters);
 });
@@ -158,6 +165,7 @@ $(".datatable-Ticket").one("preInit.dt", function () {
             .columns.adjust();
     });
 });
+
 
 </script>
 @endsection

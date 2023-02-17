@@ -1,30 +1,47 @@
 @extends('layouts.admin')
+
 @section('content')
 
 <div id="alert_ajax_error" class="alert alert-danger" role="alert" style="display:none">An error occured.</div>
 <div id="alert_ajax_success" class="alert alert-success" role="alert" style="display:none">Account deleted.</div>
 
+@can('user_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route("admin.users.create") }}">
+                {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
+            </a>
+        </div>
+    </div>
+@endcan
+
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
+    </div>
+
+<div class="card-body">
+
 <div>
     <div class="row">
         <div>
-            <hr>
-            <table id="users" class="table table-bordered table-striped">
+            <table id="users" class="table display nowrap" style="width=100%;">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
                         <th>email</th>
                         <th width="150">Action</th>
+                        
                     </tr>
                 </thead>
 
             </table>
-
-            <link href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-            <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
             
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <script>
@@ -41,6 +58,10 @@
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
                     {data: 'action', name: 'action', orderable: false},
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf', 'csv'
                 ]
             }); 
 

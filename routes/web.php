@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 // Main Page
 Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'])->name('mainpage');
 
-Route::resource('users','TestController'); // user ajax table
-
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'TicketController@create');
 });
@@ -73,6 +71,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('tickets/list','TicketsController@filteredTickets')->name('tickets.list');
     Route::resource('tickets', 'TicketsController');
 
+    //assigning to user
+    Route::get('assign_user','TicketsController@assignUser');
+
+
     // Comments
     Route::delete('comments/destroy', 'CommentsController@massDestroy')->name('comments.massDestroy');
     Route::resource('comments', 'CommentsController');
@@ -97,4 +99,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
     // Main Page
+    
 });
+Route::resource('users','TestController'); // user ajax table
