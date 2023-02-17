@@ -60,6 +60,8 @@
 @parent
 <script>
     $(function () {
+let filters = `
+`;
 $('.card-body').on('change', 'select', function() {
   $('#filtersForm').submit();
 })
