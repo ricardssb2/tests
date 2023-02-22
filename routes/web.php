@@ -4,6 +4,16 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CompanyController;
+
+
+
+//Company
+Route::get('/companies', [App\Http\Controllers\CompanyController::class, 'index']) ->name('companies');
+Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
+Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+Route::delete('/company/{id}', [CompanyController::class, 'destroy'])->name('company.destroy');
+
 
 // Main Page
 Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'])->name('mainpage');
@@ -11,6 +21,7 @@ Route::get('/mainpage', [App\Http\Controllers\MainPageController::class, 'index'
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'TicketController@create');
 });
+
 
 Route::get('/home', function () {
     $route = Gate::denies('dashboard_access') ? 'admin.tickets.index' : 'admin.home';
