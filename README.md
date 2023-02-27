@@ -7,12 +7,12 @@ Laravel version: 8.0
 
 ## Installation
 - Clone the project : git clone https://github.com/renatevv/internship-portugal.git
-- Create a database and an user
-We used MySQL Workbench for local testing, you need to create a schema the same name as `DB_DATABASE` in .env configuration
-- Copy __.env.example__ file to __.env__ and edit with database credentials and mail credentials
-- Run __composer install__
-- Run __php artisan key:generate__
-- Run __php artisan migrate --seed__ (it has some seeded data for your testing)
+- Create a database and a user
+    - We used MySQL Workbench for local testing, you need to create a schema the same name as `DB_DATABASE` in .env configuration
+- Run `cp .env.example .env` and edit with database credentials and mail credentials
+- Run `composer install`
+- Run `php artisan key:generate`
+- Run `php artisan migrate --seed` (it has some seeded data for your testing)
 - That's it: launch the main URL 
 - If you want to login, click `Login` on top-right and use credentials __admin@admin.com__ - __password__ 
 - Agent's credentials are __agent1@agent1.com__ - __password__ 
@@ -33,8 +33,6 @@ When testing the project on the local environment we used a new gmail account, i
 - create new gmail account
 - enable 2 factor authorization
 - set up an app password, you have to use this in .env
-
-
 
 ## Launch the project on local
 - Start xampp (apache and mysql) : ./xampp start
@@ -85,7 +83,7 @@ When testing the project on the local environment we used a new gmail account, i
 - Change the design of the project
 - Change the way mails are designed (from notifications to blade files) -> https://laravel.com/docs/8.x/mail#generating-mailables
 
-# Additional tasks 
+### Additional tasks 
 - Registration form should include the ability to register a company and the registration should be validated by admins. The validations are sent via email and an admin, only after relating the end user to his company name
 can click on the link to where the user can be validated, email is also sent to the company user.
 
