@@ -151,13 +151,32 @@
                 </li>
             @endcan
             @can('comment_access')
-                <li class="nav-item">
-                    <a href="{{ route('companies') }}" class="nav-link {{ request()->is('admin/comments') || request()->is('admin/comments/*') ? 'active' : '' }}">
+
+            <li class="nav-item nav-dropdown">
+                    <a class="nav-link  nav-dropdown-toggle" href="#">
                         <i class="fa-fw fas fa fa-building nav-icon">
 
                         </i>
                         Companies
                     </a>
+                    <ul class="nav-dropdown-items">
+                            <li class="nav-item">
+                                <a href="{{ url('/companies') }}" class="nav-link ">
+                                    <i class="fa-fw fas fa-plus nav-icon">
+
+                                    </i>
+                                    Create Company
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ ('/assign-company') }}" class="nav-link">
+                                    <i class="fa-fw fas fa-question-circle nav-icon">
+
+                                    </i>
+                                    Assign Users
+                                </a>
+                            </li>
+                    </ul>
                 </li>
             @endcan
             <li class="nav-item">

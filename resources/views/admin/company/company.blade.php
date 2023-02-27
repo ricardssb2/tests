@@ -1,12 +1,16 @@
 @extends('layouts.admin')
 @section('content')
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
+<button type="button" class="btn btn-success" style="margin-bottom:30px;"  data-bs-toggle="modal" data-bs-target="#addCompanyModal">
   Add Company
 </button>
 
-<div class="card-body">
-<table class="table table-striped table-hover">
+<div class="card">
+  <div class="card-header">
+    Company List
+  </div>
+  <div class="card-body">
+    <table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>ID</th>
@@ -33,7 +37,9 @@
     </tr>
     @endforeach
   </tbody>
-</table>
+  </table>
+</div>
+</div>
 </div>
 
 
@@ -54,7 +60,7 @@
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="owner">Owner</label>
+                    <label for="owner">Company CEO</label>
                     <input type="text" class="form-control" id="owner" name="owner" required>
                 </div>
                 <div class="form-group">
@@ -67,57 +73,4 @@
     </div>
   </div>
 </div>
-
-
-<script>
-  $(document).ready(function() {
-    $('#addCompanyForm').on('submit', function(e) {
-      e.preventDefault(); // prevent the form from submitting normally
-
-      $.ajax({
-        type: 'POST',
-        url: '/company/store',
-        data: $('#addCompanyForm').serialize(),
-        success: function(data) {
-          // handle success response
-          $('#addCompanyModal').modal('hide'); // hide the modal after successful submission
-          // add the new company data to the table
-          var newRow = $('<tr>').append(
-            $('<td>').text(data.id),
-            $('<td>').text(data.name),
-            $('<td>').text(data.owner),
-            $('<td>').text(data.phone_number),
-            $('<td>').append(
-              $('<button>').attr('type', 'button').attr('data-id', data.id).addClass('btn btn-danger delete-company').text('Delete')
-            )
-          );
-          $('#companyTable tbody').append(newRow);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          // handle error response
-          console.log(jqXHR.responseText);
-        }
-      });
-    });
-  });
-
-  // Function to handle the delete company button click
-  $(document).on('click', '.delete-company', function() {
-    var id = $(this).attr('data-id');
-
-    $.ajax({
-      type: 'DELETE',
-      url: '/company/' + id,
-      success: function() {
-        // handle success response
-        // remove the deleted row from the table
-        $(this).closest('tr').remove();
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        // handle error response
-        console.log(jqXHR.responseText);
-      }
-    });
-  });
-</script>
 @endsection

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Company;
 
 class UsersController extends Controller
 {
@@ -127,4 +128,20 @@ class UsersController extends Controller
             }
 
     }
+
+        public function assignCompanyForm(Request $request)
+        {
+            $users = User::all();
+            $companies = Company::all();
+            return view('assign-company', compact('users', 'companies'));
+        }
+
+        public function assignCompany(Request $request)
+        {
+            $user = User::findOrFail($request->user_id);
+            $company = Company::findOrFail($request->company_id);
+            $user->company()->associate($company);
+            $user->save();
+            return redirect()->back()->with('success', 'User assigned to company successfully.');
+        }
 }
