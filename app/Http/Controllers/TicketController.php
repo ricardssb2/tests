@@ -119,15 +119,15 @@ class TicketController extends Controller
             $start_status = $result_list[$i][1];
             $end_status = $result_list[$i + 1][1];
 
-            echo "<br>Start:".$start_status . " at: " . $start_time .  " <br> End: " . $end_status . " at: " . $end_time;
+            // echo "<br>Start:".$start_status . " at: " . $start_time .  " <br> End: " . $end_status . " at: " . $end_time;
 
             if ($start_status != $end_status)
             {
                 array_push($list_of_dates, array($diff->s, $diff->i, $diff->h, $diff->d));
-                echo "<br>" . $diff->d.' Days<br>';
-                echo $diff->h.' Hours<br>';
-                echo $diff->i.' Minutes<br>';
-                echo $diff->s.' Seconds<br>';
+                // echo "<br>" . $diff->d.' Days<br>';
+                // echo $diff->h.' Hours<br>';
+                // echo $diff->i.' Minutes<br>';
+                // echo $diff->s.' Seconds<br>';
 
             }
             
@@ -139,46 +139,34 @@ class TicketController extends Controller
         $days = 0;
         for($i = 0; $i < count($list_of_dates); $i++)
         {
-            if ($seconds >= 60) 
-            {
-                $minutes++;
-                $seconds -= 60;
-            }
-            elseif ($minutes >= 60) 
-            {
-                $hours++;
-                $hours -= 60;
-            }
-            elseif($hours >= 24)
-            {
-                $days++;
-                $hours -= 24;
-            }
+        
+
             $seconds += $list_of_dates[$i][0];
             $minutes += $list_of_dates[$i][1];
             $hours += $list_of_dates[$i][2];
             $days += $list_of_dates[$i][3];
 
-
+            
         }
         
-        // while ($seconds >= 60) 
-        // {
-        //     $minutes++;
-        //     $seconds -= 60;
-        // }
-        // while ($minutes >= 60) 
-        // {
-        //     $hours++;
-        //     $hours -= 60;
-        // }
-        // while($hours >= 24)
-        // {
-        //     $days++;
-        //     $hours -= 24;
-        // }
-        echo $seconds . " seconds " . $minutes . " minutes " . $hours . " hours ". $days . " days <br>";         
-        
+        while($seconds >= 60){
+            $minutes++;
+            $seconds = $seconds - 60;
+
+        }
+        while($minutes >= 60)
+        {
+            $hours++;
+            $minutes-=60;
+        }
+        while($hours >= 24)
+        {
+            $days++;
+            $hours-=24;
+        }
+
+        $time =  $days . " days ". $hours . " hours ". $minutes . " minutes " . $seconds . " seconds "  ;         
+        return view('tickets.show', compact('ticket'), ['time' => $time]);
     }
 
     public function storeComment(Request $request, Ticket $ticket)

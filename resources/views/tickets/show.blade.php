@@ -86,6 +86,14 @@
                                     @endforelse
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    Time spent on ticket
+                                </th>
+                                <td>
+                                    {{$time}}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <form action="{{ route('tickets.storeComment', $ticket->id) }}" method="POST">
