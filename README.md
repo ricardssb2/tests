@@ -2,8 +2,8 @@
 
 ## Project informations
 Project name: Chipstorm Support Ticketing
-PHP version: 7.4
-Laravel version: 8.0
+PHP version: 8.2
+Laravel version: 9.0
 
 ## Installation
 - Clone the project : git clone https://github.com/renatevv/internship-portugal.git
