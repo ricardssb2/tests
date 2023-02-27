@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->isAdmin() || $this->isAgent();
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

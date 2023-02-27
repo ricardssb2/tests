@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ trans('panel.site_title') }}</title>
+    <title>Chipstorm Support</title>
 
     {{-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -38,7 +38,7 @@
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a href="/admin/tickets"class="" style="font-weight:bold; padding-left:20px; font-family:arial; text-decoration:none; color:black;">{{ trans('panel.site_title') }}</a>
+        <a href="/admin/tickets"class="" style="padding-left:20px; font-family:arial; text-decoration:none; color:black;">Chipstorm Support to <span style="font-weight:bold">{{ $companyName }}</span></a>
 
         </a>
 

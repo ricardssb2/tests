@@ -41,4 +41,6 @@ public function destroy($id)
 
     return redirect()->route('company.index')->with('success', 'Company deleted successfully');
 }
+
+
 }

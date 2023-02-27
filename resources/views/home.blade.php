@@ -112,6 +112,7 @@ $dataPoints = array(
         </div>
     </div>
 </div>
+
 @endsection
 @section('scripts')
 @parent
@@ -169,7 +170,7 @@ $('.card-body').on('change', 'select', function() //admin dashboard all ticket t
   data: 'priority_name', 
   name: 'priority.name', 
   render: function ( data, type, row) {
-      return '<span style="color:'+row.priority_color+'">'+data+'</span>';
+      return '<span style="background-color:'+row.priority_color+'">'+data+'</span>';
   }
 },
 { 
@@ -184,7 +185,7 @@ $('.card-body').on('change', 'select', function() //admin dashboard all ticket t
 { data: 'assigned_to_user_name', name: 'assigned_to_user.name' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
-    order: [[ 1, 'desc' ]],
+    order: [[ 1, 'asc' ]],
     pageLength: 100,
   };    
 $(".datatable-Ticket").one("preInit.dt", function () {

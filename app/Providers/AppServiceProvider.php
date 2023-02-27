@@ -23,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layouts.admin', function ($view) {
+            $user = auth()->user();
+            $companyName = '';
+            if ($user && $user->company) {
+                $companyName = $user->company->name;
+            }
+            $view->with('companyName', $companyName);
+        });
     }
 }

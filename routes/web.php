@@ -5,14 +5,22 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Admin\UsersController;
 
 
+//Assign Company
+
+Route::get('/assign-company', [App\Http\Controllers\Admin\UsersController::class,'assignCompanyForm'])->name('assign-company-form');
+Route::post('/assign-company', [App\Http\Controllers\Admin\UsersController::class,'assignCompany'])->name('assign-company');
+Route::get('/admin/users/filter', [UsersController::class, 'filter'])->name('admin.users.filter');
 
 //Company
 Route::get('/companies', [App\Http\Controllers\CompanyController::class, 'index']) ->name('companies');
 Route::post('/company', [CompanyController::class, 'store'])->name('company.store');
 Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
 Route::delete('/company/{id}', [CompanyController::class, 'destroy'])->name('company.destroy');
+
+
 
 
 // Main Page
