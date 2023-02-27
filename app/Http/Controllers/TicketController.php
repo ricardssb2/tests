@@ -165,7 +165,7 @@ class TicketController extends Controller
             $hours-=24;
         }
 
-        $time =  $days . " days ". $hours . " hours ". $minutes . " minutes " . $seconds . " seconds "  ;         
+        $time =  $days . " days ". $hours . " hours ". $minutes . " minutes " . $seconds . " seconds ";         
         return view('tickets.show', compact('ticket'), ['time' => $time]);
     }
 

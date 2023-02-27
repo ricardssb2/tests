@@ -6,22 +6,28 @@ PHP version: 7.4
 Laravel version: 8.0
 
 ## Installation
-- Clone the project : git clone git@github.com:Rokem-prog/chipstorm_support_ticket.git
+- Clone the project : git clone https://github.com/renatevv/internship-portugal.git
 - Create a database and an user
+We used MySQL Workbench for local testing, you need to create a schema the same name as `DB_DATABASE` in .env configuration
 - Copy __.env.example__ file to __.env__ and edit with database credentials and mail credentials
+
 For mail credentials we used:
 
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
+- MAIL_MAILER=smtp
+- MAIL_HOST=smtp.gmail.com
+- MAIL_PORT=587
+- MAIL_USERNAME="gmail here"
+- MAIL_PASSWORD="app password 2fa required"
+- MAIL_ENCRYPTION=tls
+- MAIL_FROM_ADDRESS="gmail here"
+- MAIL_FROM_NAME="${APP_NAME}"
 
-MAIL_USERNAME="gmail here"
-MAIL_PASSWORD="app password 2fa required"
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS="gmail here"
-MAIL_FROM_NAME="${APP_NAME}"
+Also requires database credentials in resources>views>db_connection>connection.php
+When testing the project on the local environment we used a new gmail account, if you want to set that up:
+- create new gmail account
+- enable 2 factor authorization
+- set up an app password, you have to use this in .env
 
-requires database credentials in resources>views>db_connection>connection.php
 - Run __composer install__
 - Run __php artisan key:generate__
 - Run __php artisan migrate --seed__ (it has some seeded data for your testing)
@@ -78,4 +84,40 @@ requires database credentials in resources>views>db_connection>connection.php
 - Change app name in config/app.php
 - Change the design of the project
 - Change the way mails are designed (from notifications to blade files) -> https://laravel.com/docs/8.x/mail#generating-mailables
-- Change the fact that user goes to admin but can't see anything (route and new pages to do)
+
+Registration form should include the ability to register a company and the registration should be validated by admins. The validations are sent via email and an admin, only after relating the end user to his company name
+can click on the link to where the user can be validated, email is also sent to the company user.
+
+Change the dashboard to:
+- have the author name be changed to Enduser name
+- the author email is not necessary, should be replaced with company name instead
+- the buttons for the tickets should be minimized and be replaced with icons
+- add a fast way to assign a technician to a ticket
+- the tickets should have icons by which you recognize the ticket type
+- the tickets should have colors changed depending on what type of ticket it is
+- the priority of the tickets can be changed to include icons (e.g
+stars)
+
+- the user to which the tickets are assigned to can be identified by profile pictures
+- change the design of the tables to be thinner
+- the dashboard should prioritize tickets that have a high priority and are pending. (Pending -> in progress -> open)
+
+Could be done by customization using the new configuration page
+Include a new type of user that can see all the company's employee tickets and data regarding the tickets
+Change the agent to be a IT technician
+
+Include graphs that show more details about tickets like:
+- admins can see details about the technicians (how many tickets they've done, what kind of tickets, what the progress of those tickets are, etc.)
+ 
+Add a way to add a description and title to images uploaded for tickets.
+
+The company users should receive emails for whenever their tickets are being updated, changed and commented, etc.
+
+Should have 4 types of group user profiles:
+- IT Administrators -  Must access to everything, able to set and config the tool
+- IT Users (technicians) – Must be able only to use the tickets workflow
+- Customer Users (End users) – Must be able to raise new tickets and access to the dashboard to see all the tickets send
+- Customer Administrators (Team Leaders, CEO’s ) - Must be able to raise new tickets and access to ALL the tickets send by Company users, access to the  dashboard to see all the tickets stats
+
+Build new set of Stats Graphics
+
